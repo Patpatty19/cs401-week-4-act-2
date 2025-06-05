@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->id();
-            $table->string('tag_name')->comment('Name of tag');
-            $table->string('slug')->comment('URL identified for post');
-            $table->timestamps();
+        Schema::table('posts', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -24,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+           Schema::table('posts', function (Blueprint $table) {
+            $table->dropColumn('user_id');
+        });
     }
 };
