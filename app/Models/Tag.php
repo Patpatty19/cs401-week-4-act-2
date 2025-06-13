@@ -10,5 +10,4 @@ class Tag extends Model
     {
         return $this->belongsTo(Post::class, 'post_tag');
     }
-
 }
